@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Galaxy Gym &middot; Attendance Leaderboard</title>
+
+  <!-- OpenGraph Metadata for WhatsApp & Social Sharing -->
+  <meta property="og:title" content="🏆 Galaxy Gym &middot; Official Attendance Leaderboard">
+  <meta property="og:description" content="View workout streaks, monthly consistency rankings & 3-Star champions! Consistency beats intensity. 💪🌟">
+  <meta property="og:type" content="website">
+
+  <!-- Immediate meta refresh fallback -->
+  <meta http-equiv="refresh" content="0; url=https://locking-tiny-topic-drawings.trycloudflare.com/leaderboard/share/rolling">
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --brand: #f59e0b;
+      --green: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 32px 24px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--brand);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .spinner {
+      width: 38px;
+      height: 38px;
+      border: 3.5px solid #334155;
+      border-top-color: var(--brand);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.9; }
+  </style>
+
+  <script>
+    // Dynamic URL resolver: checks for query params (e.g. ?month=2026-09)
+    (function() {
+      const BASE_TUNNEL = "https://locking-tiny-topic-drawings.trycloudflare.com";
+      const params = new URLSearchParams(window.location.search);
+      const month = params.get("month") || "rolling";
+      const targetUrl = BASE_TUNNEL + "/leaderboard/share/" + encodeURIComponent(month);
+      
+      // Update fallback button href
+      document.addEventListener("DOMContentLoaded", function() {
+        const btn = document.getElementById("redirectBtn");
+        if (btn) btn.href = targetUrl;
+      });
+
+      // Immediate redirect
+      window.location.replace(targetUrl);
+    })();
+  </script>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">GALAXY GYM</div>
+    <div class="spinner"></div>
+    <h1>Opening Leaderboard...</h1>
+    <p>Connecting you to the live Galaxy Gym consistency ranking & stars.</p>
+    <a id="redirectBtn" class="btn" href="https://locking-tiny-topic-drawings.trycloudflare.com/leaderboard/share/rolling">
+      Click to Open Now &rarr;
+    </a>
+  </div>
+</body>
+</html>
