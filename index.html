@@ -3,123 +3,569 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Galaxy Gym &middot; Attendance Leaderboard</title>
+  <title>Galaxy Fitness &middot; Member Experience &amp; Review</title>
 
-  <!-- OpenGraph Metadata for WhatsApp & Social Sharing -->
-  <meta property="og:title" content="🏆 Galaxy Gym &middot; Official Attendance Leaderboard">
-  <meta property="og:description" content="View workout streaks, monthly consistency rankings & 3-Star champions! Consistency beats intensity. 💪🌟">
+  <!-- OpenGraph Metadata for WhatsApp & Social Previews -->
+  <meta property="og:title" content="⭐ Rate Your Workout Experience &middot; Galaxy Fitness">
+  <meta property="og:description" content="Share your workout feedback and rating for Galaxy Fitness. We value your opinion!">
   <meta property="og:type" content="website">
 
-  <!-- Immediate meta refresh fallback -->
-  <meta http-equiv="refresh" content="0; url=https://locking-tiny-topic-drawings.trycloudflare.com/leaderboard/share/rolling">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #0f172a;
-      --card: #1e293b;
+      --bg: #090d16;
+      --card: #131b2e;
+      --card-hover: #19243d;
+      --border: #1e293b;
+      --primary: #3b82f6;
+      --primary-glow: rgba(59, 130, 246, 0.4);
+      --gold: #fbbf24;
+      --gold-glow: rgba(251, 191, 36, 0.45);
+      --green: #10b981;
+      --red: #ef4444;
       --text: #f8fafc;
       --muted: #94a3b8;
-      --brand: #f59e0b;
-      --green: #10b981;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-      text-align: center;
+      padding: 24px 16px 40px;
+      line-height: 1.5;
     }
-    .card {
-      background: var(--card);
-      border: 1px solid #334155;
-      border-radius: 16px;
-      padding: 32px 24px;
-      max-width: 440px;
+
+    .portal-container {
       width: 100%;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      max-width: 480px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    .badge {
-      display: inline-block;
-      background: rgba(245, 158, 11, 0.15);
-      color: var(--brand);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 16px;
+
+    .portal-container::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #f59e0b, #10b981);
     }
+
+    .gym-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(59, 130, 246, 0.12);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 14px;
+    }
+
     h1 {
       font-size: 24px;
       font-weight: 800;
+      color: #fff;
       letter-spacing: -0.5px;
       margin-bottom: 8px;
     }
-    p {
+
+    .greeting {
+      font-size: 14.5px;
       color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
       margin-bottom: 24px;
+      line-height: 1.5;
     }
-    .spinner {
-      width: 38px;
-      height: 38px;
-      border: 3.5px solid #334155;
-      border-top-color: var(--brand);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 20px;
+
+    /* Rating Box */
+    .rating-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px 16px;
+      margin-bottom: 22px;
+      transition: all 0.3s;
     }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+
+    .rating-prompt {
+      font-size: 14px;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 16px;
     }
-    .btn {
-      display: inline-block;
-      background: linear-gradient(135deg, #10b981, #059669);
+
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .star-btn {
+      background: none;
+      border: none;
+      font-size: 44px;
+      cursor: pointer;
+      color: #334155;
+      line-height: 1;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      touch-action: manipulation;
+      padding: 4px;
+    }
+
+    .star-btn:hover, .star-btn.active {
+      color: var(--gold);
+      transform: scale(1.18);
+      filter: drop-shadow(0 0 12px var(--gold-glow));
+    }
+
+    .rating-caption {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--gold);
+      min-height: 20px;
+    }
+
+    /* Positive State (4-5 Stars) */
+    .positive-state {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      animation: fadeIn 0.35s ease;
+      text-align: center;
+      padding: 8px 0;
+    }
+
+    .positive-badge-icon {
+      font-size: 54px;
+      margin-bottom: -4px;
+      animation: pulse 1.5s infinite;
+    }
+
+    .btn-google {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #0284c7, #2563eb);
       color: #fff;
       text-decoration: none;
       font-weight: 700;
       font-size: 15px;
-      padding: 12px 24px;
-      border-radius: 10px;
-      transition: opacity 0.2s;
+      padding: 16px 24px;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+      transition: all 0.2s;
     }
-    .btn:hover { opacity: 0.9; }
+
+    .btn-google:hover {
+      background: linear-gradient(135deg, #0369a1, #1d4ed8);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.5);
+    }
+
+    .redirect-status {
+      font-size: 12.5px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    /* Negative / Review Shield State (1-3 Stars) */
+    .shield-state {
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+      text-align: left;
+      animation: fadeIn 0.35s ease;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      border-radius: 18px;
+      padding: 20px 18px;
+    }
+
+    .shield-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #f87171;
+      font-weight: 700;
+      font-size: 14.5px;
+    }
+
+    .category-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 4px 0;
+    }
+
+    .chip-btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .chip-btn:hover, .chip-btn.active {
+      background: rgba(239, 68, 68, 0.18);
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #fca5a5;
+    }
+
+    textarea {
+      width: 100%;
+      background: #0b1120;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #fff;
+      font-size: 13.5px;
+      outline: none;
+      resize: vertical;
+      min-height: 90px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .form-input {
+      flex: 1;
+      background: #0b1120;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+    }
+
+    .btn-submit-shield {
+      background: linear-gradient(135deg, #ef4444, #b91c1c);
+      color: #fff;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14.5px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 4px;
+      transition: all 0.15s;
+      font-family: inherit;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-submit-shield:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    /* Thank You Box */
+    .thank-you-box {
+      display: none;
+      padding: 24px 18px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 18px;
+      color: #34d399;
+      font-size: 14px;
+      line-height: 1.5;
+      text-align: center;
+      animation: fadeIn 0.35s ease;
+    }
+
+    /* Navigation Card to Dashboard */
+    .dashboard-nav-card {
+      margin-top: 24px;
+      background: rgba(30, 41, 59, 0.4);
+      border: 1px dashed var(--border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-dashboard-nav {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #1e293b;
+      color: #38bdf8;
+      border: 1px solid #334155;
+      padding: 11px 22px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .btn-dashboard-nav:hover {
+      background: #0f172a;
+      border-color: #38bdf8;
+      transform: translateY(-1px);
+    }
+
+    .footer-note {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
   </style>
-
-  <script>
-    // Dynamic URL resolver: checks for query params (e.g. ?month=2026-09)
-    (function() {
-      const BASE_TUNNEL = "https://locking-tiny-topic-drawings.trycloudflare.com";
-      const params = new URLSearchParams(window.location.search);
-      const month = params.get("month") || "rolling";
-      const targetUrl = BASE_TUNNEL + "/leaderboard/share/" + encodeURIComponent(month);
-      
-      // Update fallback button href
-      document.addEventListener("DOMContentLoaded", function() {
-        const btn = document.getElementById("redirectBtn");
-        if (btn) btn.href = targetUrl;
-      });
-
-      // Immediate redirect
-      window.location.replace(targetUrl);
-    })();
-  </script>
 </head>
 <body>
-  <div class="card">
-    <div class="badge">GALAXY GYM</div>
-    <div class="spinner"></div>
-    <h1>Opening Leaderboard...</h1>
-    <p>Connecting you to the live Galaxy Gym consistency ranking & stars.</p>
-    <a id="redirectBtn" class="btn" href="https://locking-tiny-topic-drawings.trycloudflare.com/leaderboard/share/rolling">
-      Click to Open Now &rarr;
-    </a>
+  <div class="portal-container">
+    <div class="gym-badge">🏋️ Galaxy Fitness</div>
+    <h1>Member Experience</h1>
+    <p class="greeting">
+      Hi <strong id="greetingName" style="color: #fff;">Athlete</strong>! 👋<br>
+      How was your training session and gym experience today?
+    </p>
+
+    <!-- Star Rating Section -->
+    <div id="rating-section" class="rating-box">
+      <div class="rating-prompt">Tap a star to rate your workout visit:</div>
+      <div class="stars">
+        <button type="button" class="star-btn" data-val="1" onclick="handleStarClick(1)">★</button>
+        <button type="button" class="star-btn" data-val="2" onclick="handleStarClick(2)">★</button>
+        <button type="button" class="star-btn" data-val="3" onclick="handleStarClick(3)">★</button>
+        <button type="button" class="star-btn" data-val="4" onclick="handleStarClick(4)">★</button>
+        <button type="button" class="star-btn" data-val="5" onclick="handleStarClick(5)">★</button>
+      </div>
+      <div id="lbl-caption" class="rating-caption">Tap to select your rating</div>
+    </div>
+
+    <!-- 4-5 Stars: Google Review Redirect State -->
+    <div id="positive-section" class="positive-state">
+      <div class="positive-badge-icon">⭐</div>
+      <h2 style="font-size: 20px; font-weight: 800; color: #fff;">Awesome! Thank You for the Rating!</h2>
+      <p style="color: var(--muted); font-size: 13.5px; line-height: 1.55;">
+        Could you please take 10 seconds to share this on our official Google Business page? It means the world to our training team and helps our fitness community grow!
+      </p>
+      <a id="btn-google-redirect" href="https://g.page/r/your-gym/review" target="_blank" class="btn-google">
+        ⭐ Post on Google Reviews Now &rarr;
+      </a>
+      <div class="redirect-status">
+        <span>Redirecting automatically in <strong id="redirectCountdown" style="color:#fff;">2</strong> seconds...</span>
+      </div>
+    </div>
+
+    <!-- 1-3 Stars: Smart Review Shield (Management Feedback) -->
+    <div id="shield-section" class="shield-state">
+      <div class="shield-header">
+        <span>🛡️ Review Shield &middot; Gym Management Grievance</span>
+      </div>
+      <p style="color: var(--muted); font-size: 13px; line-height: 1.45;">
+        We are deeply sorry we fell short of a 5-star experience today. Please tell our gym management team what happened so we can take immediate action to resolve it:
+      </p>
+
+      <div class="category-chips">
+        <button type="button" class="chip-btn" onclick="toggleChip(this, 'Equipment / Machines')">🏋️ Equipment</button>
+        <button type="button" class="chip-btn" onclick="toggleChip(this, 'Cleanliness & Hygiene')">🧹 Cleanliness</button>
+        <button type="button" class="chip-btn" onclick="toggleChip(this, 'Trainer Guidance')">🧑‍🏫 Trainers</button>
+        <button type="button" class="chip-btn" onclick="toggleChip(this, 'AC / Music / Ambience')">❄️ Ambience / AC</button>
+        <button type="button" class="chip-btn" onclick="toggleChip(this, 'Overcrowding')">👥 Overcrowded</button>
+        <button type="button" class="chip-btn" onclick="toggleChip(this, 'Other')">💬 Other</button>
+      </div>
+
+      <textarea id="txt-feedback" placeholder="What could we have done better? (e.g. broken machine, washroom hygiene, trainer support...)"></textarea>
+
+      <div class="form-row">
+        <input type="text" id="txt-name" class="form-input" placeholder="Your Name (optional)">
+        <input type="tel" id="txt-phone" class="form-input" placeholder="Mobile No. (for callback)">
+      </div>
+
+      <button type="button" class="btn-submit-shield" onclick="submitPrivateFeedback()">
+        Send Directly to Gym Management &rarr;
+      </button>
+    </div>
+
+    <!-- Thank You Confirmation -->
+    <div id="thank-you-box" class="thank-you-box">
+      <div style="font-size: 34px; margin-bottom: 8px;">✅</div>
+      <strong style="font-size: 16px; color: #fff;">Thank You for Your Feedback!</strong><br>
+      Your grievance has been submitted directly to our gym management. We will look into this immediately to make your next workout better.
+    </div>
+
+    <!-- Navigation Card to Member Dashboard -->
+    <div class="dashboard-nav-card">
+      <div style="font-size: 12.5px; color: var(--muted);">Check your attendance streaks &amp; ranking:</div>
+      <a href="/dashboard" class="btn-dashboard-nav">
+        <span>📊</span> View Attendance Leaderboard &amp; Dashboard &rarr;
+      </a>
+    </div>
+
+    <div class="footer-note">
+      Galaxy Fitness &bull; Official Review &amp; Member Portal &bull; 24/7 Cloud Edge
+    </div>
   </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const memberName = params.get("name") || "";
+    const memberPhone = params.get("phone") || "";
+    const memberId = params.get("member_id") || "";
+    const customGoogleUrl = params.get("review_url") || "";
+    const targetGoogleUrl = customGoogleUrl || "https://g.page/r/your-gym/review";
+
+    if (memberName) {
+      document.getElementById("greetingName").textContent = memberName;
+      if (document.getElementById("txt-name")) {
+        document.getElementById("txt-name").value = memberName;
+      }
+    }
+    if (memberPhone && document.getElementById("txt-phone")) {
+      document.getElementById("txt-phone").value = memberPhone;
+    }
+
+    let selectedRating = 5;
+    let selectedCategories = [];
+
+    const captions = {
+      1: "😞 1 Star: Poor - We fell short",
+      2: "😐 2 Stars: Fair - Needs improvement",
+      3: "🙂 3 Stars: Good - Average session",
+      4: "😊 4 Stars: Great - Really enjoyed it!",
+      5: "🤩 5 Stars: Excellent - 5-Star Experience!"
+    };
+
+    function toggleChip(btn, category) {
+      btn.classList.toggle('active');
+      if (selectedCategories.includes(category)) {
+        selectedCategories = selectedCategories.filter(c => c !== category);
+      } else {
+        selectedCategories.push(category);
+      }
+    }
+
+    function handleStarClick(stars) {
+      selectedRating = stars;
+      const btns = document.querySelectorAll('.star-btn');
+      btns.forEach((b, idx) => {
+        b.classList.toggle('active', idx < stars);
+      });
+      document.getElementById('lbl-caption').textContent = captions[stars] || '';
+
+      setTimeout(() => {
+        document.getElementById('rating-section').style.display = 'none';
+
+        if (stars >= 4) {
+          // 4-5 Stars: Google Redirect
+          document.getElementById('positive-section').style.display = 'flex';
+          const redirectBtn = document.getElementById('btn-google-redirect');
+          if (redirectBtn) redirectBtn.href = targetGoogleUrl;
+
+          // LocalStorage log
+          try {
+            const logs = JSON.parse(localStorage.getItem('galaxygym_reviews') || '[]');
+            logs.push({ name: memberName, phone: memberPhone, rating: stars, action: 'GOOGLE_REDIRECT', time: new Date().toISOString() });
+            localStorage.setItem('galaxygym_reviews', JSON.stringify(logs));
+          } catch(e) {}
+
+          // 2-second countdown & redirect
+          let countdown = 2;
+          const timer = setInterval(() => {
+            countdown--;
+            const countEl = document.getElementById('redirectCountdown');
+            if (countEl) countEl.textContent = countdown;
+            if (countdown <= 0) {
+              clearInterval(timer);
+              window.location.href = targetGoogleUrl;
+            }
+          }, 1000);
+        } else {
+          // 1-3 Stars: Smart Review Shield
+          document.getElementById('shield-section').style.display = 'flex';
+        }
+      }, 350);
+    }
+
+    function submitPrivateFeedback() {
+      const comment = (document.getElementById('txt-feedback').value || '').trim();
+      const customName = document.getElementById('txt-name') ? document.getElementById('txt-name').value.trim() : '';
+      const customPhone = document.getElementById('txt-phone') ? document.getElementById('txt-phone').value.trim() : '';
+
+      const payload = {
+        member_id: memberId,
+        member_name: customName || memberName,
+        member_phone: customPhone || memberPhone,
+        rating: selectedRating,
+        category: selectedCategories.join(', '),
+        comment: comment,
+        submitted_at: new Date().toISOString()
+      };
+
+      // Save to localStorage
+      try {
+        const grievances = JSON.parse(localStorage.getItem('galaxygym_grievances') || '[]');
+        grievances.push(payload);
+        localStorage.setItem('galaxygym_grievances', JSON.stringify(grievances));
+      } catch(e) {}
+
+      // Attempt background submit to local gym server if reachable
+      fetch('/api/review/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(() => {});
+
+      document.getElementById('shield-section').style.display = 'none';
+      document.getElementById('thank-you-box').style.display = 'block';
+    }
+  </script>
 </body>
 </html>

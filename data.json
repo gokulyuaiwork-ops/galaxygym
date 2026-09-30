@@ -1,0 +1,221 @@
+{
+  "gym_name": "Galaxy Fitness",
+  "synced_at": "30 Sep 2026, 09:35 PM",
+  "google_review_url": "https://g.page/r/your-gym/review",
+  "domain_url": "https://galaxygym.revieweasy.in",
+  "dashboard_url": "https://galaxygym.revieweasy.in/dashboard",
+  "views": {
+    "rolling": {
+      "key": "rolling",
+      "title": "Last 30 Days",
+      "label": "01 Sep 2026 – 30 Sep 2026",
+      "working_days": 26,
+      "total_members": 3,
+      "kpis": {
+        "champions_count": 0,
+        "max_days": 2,
+        "high_performers_count": 0
+      },
+      "rows": [
+        {
+          "rank": 1,
+          "medal": "🥇",
+          "name": "Eshwar K",
+          "days_attended": 2,
+          "working_days": 26,
+          "percentage": 9.5,
+          "stars": 0,
+          "stars_str": "—",
+          "title": "Participant",
+          "badge_class": "neutral-badge",
+          "last_punch": "30 Sep, 12:22 PM"
+        },
+        {
+          "rank": 2,
+          "medal": "🥈",
+          "name": "Unregistered #99",
+          "days_attended": 1,
+          "working_days": 26,
+          "percentage": 10.0,
+          "stars": 0,
+          "stars_str": "—",
+          "title": "Participant",
+          "badge_class": "neutral-badge",
+          "last_punch": "19 Sep, 11:34 AM"
+        },
+        {
+          "rank": 2,
+          "medal": "🥈",
+          "name": "Unregistered #1",
+          "days_attended": 1,
+          "working_days": 26,
+          "percentage": 10.0,
+          "stars": 0,
+          "stars_str": "—",
+          "title": "Participant",
+          "badge_class": "neutral-badge",
+          "last_punch": "29 Sep, 03:26 PM"
+        }
+      ]
+    },
+    "monthly": {
+      "key": "monthly",
+      "title": "Last 30 Days (01 Sep – 30 Sep 2026)",
+      "label": "01 September 2026 – 30 September 2026",
+      "working_days": 26,
+      "total_members": 3,
+      "kpis": {
+        "champions_count": 0,
+        "max_days": 2,
+        "high_performers_count": 0
+      },
+      "rows": [
+        {
+          "rank": 1,
+          "medal": "🥇",
+          "name": "Eshwar K",
+          "days_attended": 2,
+          "working_days": 26,
+          "percentage": 9.5,
+          "stars": 0,
+          "stars_str": "—",
+          "title": "Participant",
+          "badge_class": "neutral-badge",
+          "last_punch": "30 Sep, 12:22 PM"
+        },
+        {
+          "rank": 2,
+          "medal": "🥈",
+          "name": "Unregistered #99",
+          "days_attended": 1,
+          "working_days": 26,
+          "percentage": 10.0,
+          "stars": 0,
+          "stars_str": "—",
+          "title": "Participant",
+          "badge_class": "neutral-badge",
+          "last_punch": "19 Sep, 11:34 AM"
+        },
+        {
+          "rank": 2,
+          "medal": "🥈",
+          "name": "Unregistered #1",
+          "days_attended": 1,
+          "working_days": 26,
+          "percentage": 10.0,
+          "stars": 0,
+          "stars_str": "—",
+          "title": "Participant",
+          "badge_class": "neutral-badge",
+          "last_punch": "29 Sep, 03:26 PM"
+        }
+      ]
+    },
+    "year": {
+      "key": "year",
+      "title": "Year 2026",
+      "label": "01 Jan 2026 – 30 Sep 2026 (Full Year 2026: Jan – Dec)",
+      "working_days": 234,
+      "total_members": 3,
+      "kpis": {
+        "champions_count": 0,
+        "max_days": 2,
+        "high_performers_count": 0
+      },
+      "rows": [
+        {
+          "rank": 1,
+          "medal": "🥇",
+          "name": "Eshwar K",
+          "days_attended": 2,
+          "working_days": 234,
+          "percentage": 9.5,
+          "stars": 0,
+          "stars_str": "—",
+          "title": "Participant",
+          "badge_class": "neutral-badge",
+          "last_punch": "30 Sep, 12:22 PM"
+        },
+        {
+          "rank": 2,
+          "medal": "🥈",
+          "name": "Unregistered #99",
+          "days_attended": 1,
+          "working_days": 234,
+          "percentage": 10.0,
+          "stars": 0,
+          "stars_str": "—",
+          "title": "Participant",
+          "badge_class": "neutral-badge",
+          "last_punch": "19 Sep, 11:34 AM"
+        },
+        {
+          "rank": 2,
+          "medal": "🥈",
+          "name": "Unregistered #1",
+          "days_attended": 1,
+          "working_days": 234,
+          "percentage": 10.0,
+          "stars": 0,
+          "stars_str": "—",
+          "title": "Participant",
+          "badge_class": "neutral-badge",
+          "last_punch": "29 Sep, 03:26 PM"
+        }
+      ]
+    },
+    "all_time": {
+      "key": "all_time",
+      "title": "All-Time History",
+      "label": "All-Time (01 Jun 2026 – 30 Sep 2026)",
+      "working_days": 105,
+      "total_members": 3,
+      "kpis": {
+        "champions_count": 0,
+        "max_days": 2,
+        "high_performers_count": 0
+      },
+      "rows": [
+        {
+          "rank": 1,
+          "medal": "🥇",
+          "name": "Eshwar K",
+          "days_attended": 2,
+          "working_days": 105,
+          "percentage": 9.5,
+          "stars": 0,
+          "stars_str": "—",
+          "title": "Participant",
+          "badge_class": "neutral-badge",
+          "last_punch": "30 Sep, 12:22 PM"
+        },
+        {
+          "rank": 2,
+          "medal": "🥈",
+          "name": "Unregistered #99",
+          "days_attended": 1,
+          "working_days": 105,
+          "percentage": 10.0,
+          "stars": 0,
+          "stars_str": "—",
+          "title": "Participant",
+          "badge_class": "neutral-badge",
+          "last_punch": "19 Sep, 11:34 AM"
+        },
+        {
+          "rank": 2,
+          "medal": "🥈",
+          "name": "Unregistered #1",
+          "days_attended": 1,
+          "working_days": 105,
+          "percentage": 10.0,
+          "stars": 0,
+          "stars_str": "—",
+          "title": "Participant",
+          "badge_class": "neutral-badge",
+          "last_punch": "29 Sep, 03:26 PM"
+        }
+      ]
+    }
+  }
+}
