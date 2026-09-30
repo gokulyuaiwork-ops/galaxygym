@@ -16,65 +16,100 @@
 
   <style>
     :root {
-      --bg: #090d16;
-      --card: #131b2e;
-      --card-hover: #19243d;
-      --border: #1e293b;
-      --primary: #3b82f6;
-      --primary-glow: rgba(59, 130, 246, 0.4);
-      --gold: #fbbf24;
-      --gold-glow: rgba(251, 191, 36, 0.45);
+      --bg: #f8fafc;
+      --glass-panel: rgba(255, 255, 255, 0.72);
+      --glass-card: rgba(255, 255, 255, 0.85);
+      --glass-card-hover: rgba(255, 255, 255, 0.95);
+      --glass-border: rgba(255, 255, 255, 0.8);
+      --glass-border-subtle: rgba(226, 232, 240, 0.7);
+      --glass-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(255, 255, 255, 0.9) inset;
+      --glass-shadow-lg: 0 25px 50px -12px rgba(15, 23, 42, 0.12), 0 0 1px 1px rgba(255, 255, 255, 0.9) inset;
+      --primary: #2563eb;
+      --primary-light: #eff6ff;
+      --gold: #f59e0b;
+      --gold-light: #fffbeb;
       --green: #10b981;
+      --green-light: #ecfdf5;
       --red: #ef4444;
-      --text: #f8fafc;
-      --muted: #94a3b8;
+      --red-light: #fef2f2;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-subtle: #94a3b8;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 15%, rgba(219, 234, 254, 0.7) 0%, transparent 40%),
+        radial-gradient(circle at 90% 10%, rgba(254, 243, 199, 0.6) 0%, transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(209, 250, 229, 0.5) 0%, transparent 50%),
+        #f8fafc;
+      color: var(--text-main);
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 24px 16px 40px;
+      padding: 32px 16px 48px;
       line-height: 1.5;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Background Ambient Liquid Blobs */
+    .ambient-blob-1 {
+      position: fixed;
+      top: -100px;
+      left: -80px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.18), transparent 70%);
+      border-radius: 50%;
+      filter: blur(60px);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .ambient-blob-2 {
+      position: fixed;
+      bottom: -80px;
+      right: -80px;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.16), transparent 70%);
+      border-radius: 50%;
+      filter: blur(70px);
+      z-index: 0;
+      pointer-events: none;
     }
 
     .portal-container {
       width: 100%;
-      max-width: 480px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 32px 24px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      max-width: 460px;
+      background: var(--glass-panel);
+      backdrop-filter: blur(24px) saturate(190%);
+      -webkit-backdrop-filter: blur(24px) saturate(190%);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      padding: 36px 28px;
+      box-shadow: var(--glass-shadow-lg);
       text-align: center;
       position: relative;
-      overflow: hidden;
-    }
-
-    .portal-container::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, #3b82f6, #f59e0b, #10b981);
+      z-index: 1;
+      transition: transform 0.2s ease;
     }
 
     .gym-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(59, 130, 246, 0.12);
-      color: #60a5fa;
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      padding: 5px 14px;
+      background: rgba(37, 99, 235, 0.08);
+      color: var(--primary);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      padding: 6px 14px;
       border-radius: 999px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.8px;
@@ -84,32 +119,35 @@
     h1 {
       font-size: 24px;
       font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.5px;
+      color: var(--text-main);
+      letter-spacing: -0.6px;
       margin-bottom: 8px;
     }
 
     .greeting {
       font-size: 14.5px;
-      color: var(--muted);
+      color: var(--text-muted);
       margin-bottom: 24px;
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
-    /* Rating Box */
+    /* Liquid Glass Rating Box */
     .rating-box {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 24px 16px;
+      background: var(--glass-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 22px;
+      padding: 24px 18px;
       margin-bottom: 22px;
-      transition: all 0.3s;
+      box-shadow: var(--glass-shadow);
+      transition: all 0.25s ease;
     }
 
     .rating-prompt {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 600;
-      color: #cbd5e1;
+      color: var(--text-muted);
       margin-bottom: 16px;
     }
 
@@ -123,25 +161,25 @@
     .star-btn {
       background: none;
       border: none;
-      font-size: 44px;
+      font-size: 46px;
       cursor: pointer;
-      color: #334155;
+      color: #cbd5e1;
       line-height: 1;
-      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       touch-action: manipulation;
-      padding: 4px;
+      padding: 2px;
     }
 
     .star-btn:hover, .star-btn.active {
       color: var(--gold);
       transform: scale(1.18);
-      filter: drop-shadow(0 0 12px var(--gold-glow));
+      filter: drop-shadow(0 4px 12px rgba(245, 158, 11, 0.35));
     }
 
     .rating-caption {
       font-size: 13.5px;
       font-weight: 700;
-      color: var(--gold);
+      color: #d97706;
       min-height: 20px;
     }
 
@@ -156,9 +194,9 @@
     }
 
     .positive-badge-icon {
-      font-size: 54px;
+      font-size: 52px;
       margin-bottom: -4px;
-      animation: pulse 1.5s infinite;
+      animation: pulse 1.6s infinite ease-in-out;
     }
 
     .btn-google {
@@ -166,26 +204,25 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      background: linear-gradient(135deg, #0284c7, #2563eb);
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
       color: #fff;
       text-decoration: none;
       font-weight: 700;
       font-size: 15px;
       padding: 16px 24px;
-      border-radius: 14px;
-      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
-      transition: all 0.2s;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-google:hover {
-      background: linear-gradient(135deg, #0369a1, #1d4ed8);
       transform: translateY(-2px);
-      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.5);
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.4);
     }
 
     .redirect-status {
       font-size: 12.5px;
-      color: var(--muted);
+      color: var(--text-muted);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -199,17 +236,19 @@
       gap: 14px;
       text-align: left;
       animation: fadeIn 0.35s ease;
-      background: rgba(15, 23, 42, 0.5);
-      border: 1px solid rgba(239, 68, 68, 0.25);
-      border-radius: 18px;
-      padding: 20px 18px;
+      background: var(--glass-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 20px;
+      padding: 22px 18px;
+      box-shadow: var(--glass-shadow);
     }
 
     .shield-header {
       display: flex;
       align-items: center;
       gap: 8px;
-      color: #f87171;
+      color: #dc2626;
       font-weight: 700;
       font-size: 14.5px;
     }
@@ -222,30 +261,31 @@
     }
 
     .chip-btn {
-      background: rgba(30, 41, 59, 0.8);
-      border: 1px solid var(--border);
-      color: #cbd5e1;
-      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--glass-border-subtle);
+      color: var(--text-muted);
+      padding: 6px 13px;
       border-radius: 20px;
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.15s ease;
+      font-family: inherit;
     }
 
     .chip-btn:hover, .chip-btn.active {
-      background: rgba(239, 68, 68, 0.18);
-      border-color: rgba(239, 68, 68, 0.5);
-      color: #fca5a5;
+      background: var(--red-light);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #b91c1c;
     }
 
     textarea {
       width: 100%;
-      background: #0b1120;
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--glass-border-subtle);
+      border-radius: 14px;
       padding: 12px 14px;
-      color: #fff;
+      color: var(--text-main);
       font-size: 13.5px;
       outline: none;
       resize: vertical;
@@ -256,6 +296,7 @@
 
     textarea:focus {
       border-color: var(--primary);
+      background: #fff;
     }
 
     .form-row {
@@ -265,11 +306,11 @@
 
     .form-input {
       flex: 1;
-      background: #0b1120;
-      border: 1px solid var(--border);
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--glass-border-subtle);
+      border-radius: 12px;
       padding: 10px 12px;
-      color: #fff;
+      color: var(--text-main);
       font-size: 13px;
       outline: none;
       font-family: inherit;
@@ -277,22 +318,23 @@
 
     .form-input:focus {
       border-color: var(--primary);
+      background: #fff;
     }
 
     .btn-submit-shield {
-      background: linear-gradient(135deg, #ef4444, #b91c1c);
+      background: linear-gradient(135deg, #ef4444, #dc2626);
       color: #fff;
       border: none;
       padding: 14px 20px;
-      border-radius: 12px;
+      border-radius: 14px;
       font-weight: 700;
-      font-size: 14.5px;
+      font-size: 14px;
       cursor: pointer;
       width: 100%;
       margin-top: 4px;
-      transition: all 0.15s;
+      transition: all 0.15s ease;
       font-family: inherit;
-      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+      box-shadow: 0 6px 18px rgba(239, 68, 68, 0.25);
     }
 
     .btn-submit-shield:hover {
@@ -300,26 +342,26 @@
       transform: translateY(-1px);
     }
 
-    /* Thank You Box */
+    /* Thank You Confirmation */
     .thank-you-box {
       display: none;
       padding: 24px 18px;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      border-radius: 18px;
-      color: #34d399;
+      background: var(--green-light);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 20px;
+      color: #065f46;
       font-size: 14px;
-      line-height: 1.5;
+      line-height: 1.55;
       text-align: center;
       animation: fadeIn 0.35s ease;
     }
 
-    /* Navigation Card to Dashboard */
+    /* Navigation to Dashboard */
     .dashboard-nav-card {
       margin-top: 24px;
-      background: rgba(30, 41, 59, 0.4);
-      border: 1px dashed var(--border);
-      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px dashed rgba(203, 213, 225, 0.8);
+      border-radius: 18px;
       padding: 16px 20px;
       display: flex;
       flex-direction: column;
@@ -332,28 +374,29 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: #1e293b;
-      color: #38bdf8;
-      border: 1px solid #334155;
+      background: #fff;
+      color: var(--primary);
+      border: 1px solid var(--glass-border-subtle);
       padding: 11px 22px;
-      border-radius: 12px;
+      border-radius: 14px;
       font-weight: 700;
       font-size: 14px;
       text-decoration: none;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
       width: 100%;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
     }
 
     .btn-dashboard-nav:hover {
-      background: #0f172a;
-      border-color: #38bdf8;
+      background: var(--primary-light);
+      border-color: var(--primary);
       transform: translateY(-1px);
     }
 
     .footer-note {
-      margin-top: 20px;
+      margin-top: 22px;
       font-size: 12px;
-      color: #64748b;
+      color: var(--text-subtle);
     }
 
     @keyframes fadeIn {
@@ -368,11 +411,15 @@
   </style>
 </head>
 <body>
+  <!-- Ambient Liquid Glow Elements -->
+  <div class="ambient-blob-1"></div>
+  <div class="ambient-blob-2"></div>
+
   <div class="portal-container">
     <div class="gym-badge">🏋️ Galaxy Fitness</div>
     <h1>Member Experience</h1>
     <p class="greeting">
-      Hi <strong id="greetingName" style="color: #fff;">Athlete</strong>! 👋<br>
+      Hi <strong id="greetingName" style="color: var(--text-main);">Athlete</strong>! 👋<br>
       How was your training session and gym experience today?
     </p>
 
@@ -392,15 +439,15 @@
     <!-- 4-5 Stars: Google Review Redirect State -->
     <div id="positive-section" class="positive-state">
       <div class="positive-badge-icon">⭐</div>
-      <h2 style="font-size: 20px; font-weight: 800; color: #fff;">Awesome! Thank You for the Rating!</h2>
-      <p style="color: var(--muted); font-size: 13.5px; line-height: 1.55;">
-        Could you please take 10 seconds to share this on our official Google Business page? It means the world to our training team and helps our fitness community grow!
+      <h2 style="font-size: 20px; font-weight: 800; color: var(--text-main);">Awesome! Thank You for the Rating!</h2>
+      <p style="color: var(--text-muted); font-size: 13.5px; line-height: 1.55;">
+        Could you please take 10 seconds to share this on our official Google Business page? It means the world to our coaching team and helps our fitness community grow!
       </p>
       <a id="btn-google-redirect" href="https://g.page/r/your-gym/review" target="_blank" class="btn-google">
         ⭐ Post on Google Reviews Now &rarr;
       </a>
       <div class="redirect-status">
-        <span>Redirecting automatically in <strong id="redirectCountdown" style="color:#fff;">2</strong> seconds...</span>
+        <span>Redirecting automatically in <strong id="redirectCountdown" style="color: var(--text-main);">2</strong> seconds...</span>
       </div>
     </div>
 
@@ -409,7 +456,7 @@
       <div class="shield-header">
         <span>🛡️ Review Shield &middot; Gym Management Grievance</span>
       </div>
-      <p style="color: var(--muted); font-size: 13px; line-height: 1.45;">
+      <p style="color: var(--text-muted); font-size: 13px; line-height: 1.45;">
         We are deeply sorry we fell short of a 5-star experience today. Please tell our gym management team what happened so we can take immediate action to resolve it:
       </p>
 
@@ -437,13 +484,13 @@
     <!-- Thank You Confirmation -->
     <div id="thank-you-box" class="thank-you-box">
       <div style="font-size: 34px; margin-bottom: 8px;">✅</div>
-      <strong style="font-size: 16px; color: #fff;">Thank You for Your Feedback!</strong><br>
+      <strong style="font-size: 16px; color: #065f46;">Thank You for Your Feedback!</strong><br>
       Your grievance has been submitted directly to our gym management. We will look into this immediately to make your next workout better.
     </div>
 
     <!-- Navigation Card to Member Dashboard -->
     <div class="dashboard-nav-card">
-      <div style="font-size: 12.5px; color: var(--muted);">Check your attendance streaks &amp; ranking:</div>
+      <div style="font-size: 12.5px; color: var(--text-muted);">Check your attendance streaks &amp; ranking:</div>
       <a href="/dashboard" class="btn-dashboard-nav">
         <span>📊</span> View Attendance Leaderboard &amp; Dashboard &rarr;
       </a>
