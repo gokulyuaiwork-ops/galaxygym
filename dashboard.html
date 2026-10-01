@@ -531,10 +531,10 @@
 
     <!-- 4 Timeframe Period Tabs -->
     <div class="tabs-wrapper">
-      <button class="tab-btn active" onclick="switchTab('rolling')">🔥 Last 30 Days (Rolling)</button>
-      <button class="tab-btn" onclick="switchTab('monthly')">📅 1 Month (Current)</button>
-      <button class="tab-btn" onclick="switchTab('year')">📆 1 Year (Full)</button>
-      <button class="tab-btn" onclick="switchTab('all_time')">🏆 All-Time History</button>
+      <button class="tab-btn active" data-tab="rolling" onclick="switchTab('rolling')">🔥 Last 30 Days (Rolling)</button>
+      <button class="tab-btn" data-tab="monthly" onclick="switchTab('monthly')">📅 1 Month (Current)</button>
+      <button class="tab-btn" data-tab="year" onclick="switchTab('year')">📆 1 Year (Full)</button>
+      <button class="tab-btn" data-tab="all_time" onclick="switchTab('all_time')">🏆 All-Time History</button>
     </div>
 
     <!-- Search & Filter Bar -->
@@ -582,6 +582,19 @@
     if (searchTarget) {
       const searchBox = document.getElementById("searchInput");
       if (searchBox) searchBox.value = searchTarget;
+    }
+
+    // Auto-detect timeframe tab from URL path or query params
+    const pathStr = window.location.pathname.toLowerCase();
+    const tabParam = (urlParams.get("tab") || urlParams.get("view") || "").toLowerCase();
+    if (pathStr.includes("all_time") || tabParam === "all_time") {
+      currentViewKey = "all_time";
+    } else if (pathStr.includes("year") || tabParam === "year") {
+      currentViewKey = "year";
+    } else if (pathStr.includes("month") || tabParam === "monthly" || /\b20\d\d-\d\d\b/.test(pathStr)) {
+      currentViewKey = "monthly";
+    } else {
+      currentViewKey = "rolling";
     }
 
     function renderLeaderboard() {
@@ -652,10 +665,9 @@
 
     function switchTab(key) {
       currentViewKey = key;
-      document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
-      if (event && event.target) {
-        event.target.classList.add("active");
-      }
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-tab") === key);
+      });
       renderLeaderboard();
     }
 
@@ -676,7 +688,10 @@
       window.open("https://api.whatsapp.com/send?text=" + text, "_blank");
     }
 
-    // Initial render
+    // Initial render with matching tab
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.classList.toggle("active", btn.getAttribute("data-tab") === currentViewKey);
+    });
     renderLeaderboard();
   </script>
 </body>
