@@ -1,11 +1,8 @@
 {
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/dashboard", "destination": "/dashboard.html" },
-    { "source": "/dashboard/(.*)", "destination": "/dashboard.html" },
-    { "source": "/leaderboard", "destination": "/dashboard.html" },
-    { "source": "/leaderboard/(.*)", "destination": "/dashboard.html" },
-    { "source": "/review", "destination": "/index.html" },
-    { "source": "/review/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "src": "/dashboard.*", "dest": "/dashboard.html" },
+    { "src": "/leaderboard.*", "dest": "/dashboard.html" },
+    { "src": "/review.*", "dest": "/index.html" },
+    { "handle": "filesystem" }
   ]
 }
